@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
           backgroundColor: (),
         ),
         body: Center(
-          child: Text('Welcome to KNexxt'),
+          child: Text('Welcome to KNexxt splash'),
         ),
       ),
     );
