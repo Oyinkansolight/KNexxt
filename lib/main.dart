@@ -2,6 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:knexxt/components/MyNavBar.dart';
 
@@ -23,17 +25,52 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  // Array screens = [Profile()]
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(primarySwatch: Colors.green),
       title: 'Knexxt',
       home: Scaffold(
-          body: Profile(),
+          body: (selectedIndex == 0
+              ? Profile()
+              : selectedIndex == 1
+                  ? Center(child: Contacts())
+                  : Center(child: Text('Seetings Page'))),
           bottomNavigationBar: MyNavBar(
             selected: selectedIndex,
             tap: selectedMenu,
           )),
+    );
+  }
+}
+
+class Contacts extends StatelessWidget {
+  const Contacts({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Center(
+        child: Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Container(
+                width: 20,
+                color: Colors.green,
+                child: IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.add),
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
