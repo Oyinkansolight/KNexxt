@@ -20,7 +20,7 @@ class Contacts extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(8.0, 60.0, 8.0, 0.0),
+          padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0.0),
           child: Center(
               child: Text('My Contacts', style: TextStyle(fontSize: 30.0))),
         ),
