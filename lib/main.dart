@@ -73,57 +73,95 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(primarySwatch: Colors.green),
       title: 'Knexxt',
       home: Scaffold(
-          body: !addContacts
-              ? (selectedIndex == 0
-                  ? Profile()
-                  : selectedIndex == 1
-                      ? Center(
-                          child: FutureBuilder<UserContacts>(
-                          future: futureContacts,
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              // print(snapshot.data!.results);
-                              return Contacts(contacts: snapshot.data!.results);
-                            } else if (snapshot.hasError) {
-                              return Text("${snapshot.error}");
-                            }
+        body: !addContacts
+            ? (selectedIndex == 0
+                ? Profile()
+                : selectedIndex == 1
+                    ? Center(
+                        child: FutureBuilder<UserContacts>(
+                        future: futureContacts,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            // print(snapshot.data!.results);
+                            return Contacts(contacts: snapshot.data!.results);
+                          } else if (snapshot.hasError) {
+                            return Text("${snapshot.error}");
+                          }
 
-                            // By default, show a loading spinner.
-                            return CircularProgressIndicator();
-                          },
-                        ))
-                      : Center(child: Text('Setings Page')))
-              : Column(children: [
-                  Padding(
-                    padding: const EdgeInsets.all(32.0),
-                    child: Center(
-                      child: BackButton(onPressed: () {
-                        setState(() {
-                          addContacts = false;
-                        });
-                      }),
-                    ),
+                          // By default, show a loading spinner.
+                          return CircularProgressIndicator();
+                        },
+                      ))
+                    : Center(child: Text('Setings Page')))
+            : Column(children: [
+                Padding(
+                  padding: const EdgeInsets.all(32.0),
+                  child: Center(
+                    child: BackButton(onPressed: () {
+                      setState(() {
+                        addContacts = false;
+                      });
+                    }),
                   ),
-                  Center(child: Text('Add Contacts Page'))
-                ]) //Temp add contacts page
-          ,
-          floatingActionButton: selectedIndex == 1
-              ? FloatingActionButton(
-                  backgroundColor: Colors.green,
-                  onPressed: () {
-                    setState(() {
-                      addContacts = true;
-                    });
-                  },
-                  tooltip: 'Add',
-                  child: Icon(Icons.person_add),
-                  elevation: 3.0,
-                )
-              : Text(''),
-          bottomNavigationBar: MyNavBar(
-            selected: selectedIndex,
-            tap: selectedMenu,
-          )),
+                ),
+                Center(child: Text('Add Contacts Page'))
+              ]) //Temp add contacts page
+        ,
+        floatingActionButton: selectedIndex == 1
+            ? FloatingActionButton(
+                backgroundColor: Colors.green,
+                onPressed: () {
+                  setState(() {
+                    addContacts = true;
+                  });
+                },
+                tooltip: 'Add',
+                child: Icon(Icons.person_add),
+                elevation: 3.0,
+              )
+            : Text(''),
+        bottomNavigationBar: MyNavBar(
+          selected: selectedIndex,
+          tap: selectedMenu,
+        ),
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: Text(
+            'Knexxt',
+            style: TextStyle(color: Colors.green),
+          ),
+          actions: <Widget>[
+            PopupMenuButton(
+              icon: const Icon(
+                Icons.notifications,
+                color: Colors.grey,
+              ),
+              itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+                const PopupMenuItem(
+                  child: Text('Working a lot harder'),
+                ),
+                const PopupMenuItem(
+                  child: Text('Being a lot smarter'),
+                ),
+                const PopupMenuItem(
+                  child: Text('Being a self-starter'),
+                ),
+                const PopupMenuItem(
+                  child: Text('Placed in charge of trading charter'),
+                ),
+              ],
+            )
+            // IconButton(
+            //   icon: const Icon(Icons.notifications),
+            //   tooltip: 'Open notifications',
+            //   onPressed: () {
+            //     // handle the press
+            //   },
+            // ),
+          ],
+        ),
+      ),
     );
   }
 }
