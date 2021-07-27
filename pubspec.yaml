@@ -24,6 +24,11 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_svg: ^0.22.0
+  http: ^0.13.3
+  # flare_splash_screen: ^4.0.0
+  rive_splash_screen: ^0.1.0
+  dropdown_search: ^0.6.3
+  dio: ^4.0.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -51,6 +56,7 @@ flutter:
     - assets/location.svg
     - assets/backup.svg
     - assets/upload.svg
+    - assets/location.riv
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
