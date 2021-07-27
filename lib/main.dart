@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'dart:convert';
+// import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:knexxt/components/MyNavBar.dart';
@@ -10,6 +11,7 @@ import 'package:http/http.dart' as http;
 
 import 'components/Contacts.dart';
 import 'components/Profile.dart';
+import 'components/Settings.dart';
 
 void main() => runApp(MyApp());
 
@@ -83,16 +85,18 @@ class _MyAppState extends State<MyApp> {
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             // print(snapshot.data!.results);
-                            return Contacts(contacts: snapshot.data!.results);
+                            return Contacts(
+                                contacts: snapshot.data!.results, error: false);
                           } else if (snapshot.hasError) {
-                            return Text("${snapshot.error}");
+                            print(snapshot.error);
+                            return Contacts(contacts: [], error: true);
                           }
 
                           // By default, show a loading spinner.
                           return CircularProgressIndicator();
                         },
                       ))
-                    : Center(child: Text('Setings Page')))
+                    : Settings())
             : Column(children: [
                 Padding(
                   padding: const EdgeInsets.all(32.0),
