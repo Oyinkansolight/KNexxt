@@ -6,6 +6,7 @@ import 'dart:convert';
 // import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:knexxt/components/AddContacts.dart';
 import 'package:knexxt/components/MyNavBar.dart';
 import 'package:http/http.dart' as http;
 
@@ -39,12 +40,8 @@ Future<UserContacts> fetchContacts() async {
       await http.get(Uri.parse('https://randomuser.me/api/?results=5'));
 
   if (response.statusCode == 200) {
-    // If the server did return a 200 OK response,
-    // then parse the JSON.
     return UserContacts.fromJson(jsonDecode(response.body));
   } else {
-    // If the server did not return a 200 OK response,
-    // then throw an exception.
     throw Exception('Failed to load contacts');
   }
 }
@@ -61,6 +58,18 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  closeAddContacts() {
+    setState(() {
+      addContacts = false;
+    });
+  }
+
+  openAddContacts() {
+    setState(() {
+      addContacts = true;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -72,8 +81,8 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(primarySwatch: Colors.green),
-      title: 'Knexxt',
+      theme: ThemeData(primarySwatch: Colors.green, fontFamily: 'Fira'),
+      title: 'KNexxt',
       home: Scaffold(
         body: !addContacts
             ? (selectedIndex == 0
@@ -97,27 +106,14 @@ class _MyAppState extends State<MyApp> {
                         },
                       ))
                     : Settings())
-            : Column(children: [
-                Padding(
-                  padding: const EdgeInsets.all(32.0),
-                  child: Center(
-                    child: BackButton(onPressed: () {
-                      setState(() {
-                        addContacts = false;
-                      });
-                    }),
-                  ),
-                ),
-                Center(child: Text('Add Contacts Page'))
-              ]) //Temp add contacts page
-        ,
+            : AddContactPage(
+                closeAddContacts: closeAddContacts,
+              ),
         floatingActionButton: selectedIndex == 1
             ? FloatingActionButton(
                 backgroundColor: Colors.green,
                 onPressed: () {
-                  setState(() {
-                    addContacts = true;
-                  });
+                  openAddContacts();
                 },
                 tooltip: 'Add',
                 child: Icon(Icons.person_add),
@@ -132,7 +128,7 @@ class _MyAppState extends State<MyApp> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           title: Text(
-            'Knexxt',
+            'KNexxt',
             style: TextStyle(color: Colors.green),
           ),
           actions: <Widget>[
