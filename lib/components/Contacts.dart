@@ -21,8 +21,9 @@ class Contacts extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0.0),
                 child: Center(
-                    child:
-                        Text('My Contacts', style: TextStyle(fontSize: 30.0))),
+                    child: Text('My Contacts',
+                        style: TextStyle(
+                            fontSize: 30.0, fontWeight: FontWeight.bold))),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -93,26 +94,38 @@ class AllContacts extends StatelessWidget {
           itemBuilder: (BuildContext ctx, index) {
             return Column(
               children: [
-                Expanded(
-                  child: Padding(
-                    padding: index.isOdd
-                        ? const EdgeInsets.only(top: 80)
-                        : const EdgeInsets.all(0),
-                    child: Container(
-                        padding: EdgeInsets.all(3),
-                        decoration: BoxDecoration(
-                            color: Colors.accents[Random().nextInt(10)],
-                            shape: BoxShape.circle),
-                        child: CircleAvatar(
-                            radius: 65,
-                            backgroundColor: Colors.green,
-                            backgroundImage: NetworkImage(
-                                contacts[index]['picture']['large']))),
+                SizedBox(
+                  height: index.isOdd ? 280 : 200,
+                  child: Expanded(
+                    child: Padding(
+                      padding: index.isOdd
+                          ? const EdgeInsets.only(top: 0)
+                          : const EdgeInsets.all(0),
+                      child: Container(
+                          margin: index.isOdd
+                              ? EdgeInsets.fromLTRB(0, 30, 0, 0)
+                              : EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          padding: EdgeInsets.all(3),
+                          decoration: BoxDecoration(
+                              color: Colors.accents[Random().nextInt(10)],
+                              shape: BoxShape.circle),
+                          child: CircleAvatar(
+                              radius: 65,
+                              backgroundColor: Colors.green,
+                              backgroundImage: NetworkImage(
+                                  contacts[index]['picture']['large']))),
+                    ),
                   ),
                 ),
-                index.isOdd ? SizedBox(height: 10) : SizedBox(height: 0),
-                Text(contacts[index]['name']['first'],
-                    style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20))
+                // index.isOdd ? SizedBox(height: 10) : SizedBox(height: 0),
+                Container(
+                  // margin: EdgeInsets.fromLTRB(0, 1, 0, 0),
+                  child: Text(contacts[index]['name']['first'],
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 20,
+                          letterSpacing: -1)),
+                )
               ],
             );
           }),
